@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QMAS Design System — files10</title>
+<title>QMAS Design System — files12</title>
 <style>
 :root {
   --bg: #F5F5F5; --surface: #FFFFFF; --border: #F0F0F0; --border-strong: #D9D9D9;
@@ -147,13 +147,13 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <div class="page-shell">
   <div class="hero">
-    <span class="tag">QMAS Design System · files10</span>
+    <span class="tag">QMAS Design System · files12</span>
     <h1>QMAS Design System — Mandatory Instructions</h1>
     <p class="lead">QMAS design system skill for Ant Design v6 QMAS. TRIGGER THIS SKILL WHENEVER: (1) user says "QMAS" or "Ant Design v6" or "Ant Design System"; (2) user asks to build/design/code UI, components, pages, buttons, cards, forms, tables, modals, dashboards for QMAS product; (3) user mentions any design token, text style, effect style, or color; (4) user says "整個" (build) + UI word + "QMAS"; (5) user shows QMAS Figma file or asks about QMAS design. This skill is MANDATORY for any QMAS UI work. Use REAL QMAS Text Styles (Base, Large, Heading/2, etc.) and Effect Styles (boxShadowCard, focusPrimary, etc.) — never raw px values.</p>
     <div class="meta">
-      <span><strong>Source folder:</strong> files10/</span>
-      <span><strong>Source file:</strong> SKILL-v10-final.md</span>
-      <span><strong>Last synced:</strong> 2026-05-19</span>
+      <span><strong>Source folder:</strong> files12/</span>
+      <span><strong>Source file:</strong> SKILL-v12-final.md</span>
+      <span><strong>Last synced:</strong> 2026-05-20</span>
     </div>
   </div>
   <article class="content">
@@ -226,20 +226,24 @@ The QMAS file already has fully-built, token-bound components. Always use them.<
 <span class="nx">label</span><span class="p">.</span><span class="nx">characters</span> <span class="o">=</span> <span class="s1">&#39;Save&#39;</span><span class="p">;</span>
 </code></pre></div>
 
-<h3 id="required-use-component-instance">✅ REQUIRED — use component instance</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">// STEP 1 — Find the component set</span>
-<span class="kd">const</span> <span class="nx">buttonSet</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
-  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT_SET&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;Button&#39;</span>
-<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentSetNode</span><span class="p">;</span>
+<h3 id="required-import-the-right-component-set-then-instantiate">✅ REQUIRED — import the right component set, then instantiate</h3>
+<p>QMAS publishes <strong>three separate Button component sets</strong>, not one set with <code>Type=Primary/Default/Danger</code> variants. Pick the right key for the role you want.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Published library keys (Ant Design System - v6 (QMAS))</span>
+<span class="kd">const</span> <span class="nx">QMAS_BUTTON_KEYS</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">Primary</span><span class="o">:</span> <span class="s1">&#39;ea1bf5e1a1938d5470bab8292dcaa51ed0dd290a&#39;</span><span class="p">,</span>  <span class="c1">// → main CTA</span>
+  <span class="nx">Default</span><span class="o">:</span> <span class="s1">&#39;513ffe289cdcf781eaf16e30543226c93ee91aae&#39;</span><span class="p">,</span>  <span class="c1">// → secondary</span>
+  <span class="nx">Danger</span><span class="o">:</span>  <span class="s1">&#39;25cd90c98741332e44ef4b26c9e3b422d5dc9b92&#39;</span><span class="p">,</span>  <span class="c1">// → destructive</span>
+<span class="p">};</span>
 
-<span class="c1">// STEP 2 — Find the variant you need</span>
-<span class="kd">const</span> <span class="nx">primaryVariant</span> <span class="o">=</span> <span class="nx">buttonSet</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
-  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;Type=Primary&#39;</span><span class="p">)</span>
-<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">;</span>
+<span class="c1">// STEP 1 — Import the set from the team library</span>
+<span class="kd">const</span> <span class="nx">primarySet</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">importComponentSetByKeyAsync</span><span class="p">(</span><span class="nx">QMAS_BUTTON_KEYS</span><span class="p">.</span><span class="nx">Primary</span><span class="p">);</span>
+
+<span class="c1">// STEP 2 — Pick its default variant (or another variant by name)</span>
+<span class="kd">const</span> <span class="nx">variant</span> <span class="o">=</span> <span class="nx">primarySet</span><span class="p">.</span><span class="nx">defaultVariant</span> <span class="o">??</span> <span class="p">(</span><span class="nx">primarySet</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">);</span>
 
 <span class="c1">// STEP 3 — Create instance (inherits ALL token bindings)</span>
-<span class="kd">const</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nx">primaryVariant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
-<span class="nx">btn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Save&#39;</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nx">variant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
+<span class="nx">btn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">Label</span><span class="o">:</span> <span class="s1">&#39;Save&#39;</span> <span class="p">});</span>  <span class="c1">// case-sensitive — try Label / label / text if unsure</span>
 <span class="nx">figma</span><span class="p">.</span><span class="nx">currentPage</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">btn</span><span class="p">);</span>
 </code></pre></div>
 
@@ -266,12 +270,16 @@ The QMAS file already has fully-built, token-bound components. Always use them.<
 </tbody>
 </table>
 <h3 id="component-search-pattern-always-do-this-first">Component search pattern (always do this first)</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">// Before writing ANY Figma plugin code, search for existing components:</span>
-<span class="kd">const</span> <span class="nx">findSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span>
-  <span class="nx">figma</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT_SET&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">name</span><span class="p">);</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// QMAS publishes components via the team library — always import by key:</span>
+<span class="kd">const</span> <span class="nx">set</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">importComponentSetByKeyAsync</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">key</span><span class="o">&gt;</span><span class="p">);</span>
 
-<span class="c1">// QMAS components available in file T9HItYJ1nxXEJPiVF5xdxM:</span>
-<span class="c1">// Button, Input, Tag, Alert, Divider, Space, Icon (see Node 65:142)</span>
+<span class="c1">// Known QMAS component keys (Ant Design System - v6 (QMAS)):</span>
+<span class="c1">//   Button (Primary)   ea1bf5e1a1938d5470bab8292dcaa51ed0dd290a</span>
+<span class="c1">//   Default Button     513ffe289cdcf781eaf16e30543226c93ee91aae</span>
+<span class="c1">//   Danger Button      25cd90c98741332e44ef4b26c9e3b422d5dc9b92</span>
+<span class="c1">//   Search             38e704f41fcbd4c8cf073514e70887e7f2585269</span>
+<span class="c1">//   AutoComplete Search 92a7120ca5e7fa4474a903a65510639b629ec199</span>
+<span class="c1">// Use mcp__figma__search_design_system with includeComponents:true to discover more.</span>
 <span class="c1">// If found → createInstance()</span>
 <span class="c1">// If NOT found → build from primitives + bind all tokens manually</span>
 </code></pre></div>
@@ -369,7 +377,7 @@ The QMAS file already has fully-built, token-bound components. Always use them.<
 
 <h3 id="in-react-css-code-apply-all-three-values-together-with-comment">In React / CSS code — apply all three values together with comment</h3>
 <p>The values below are for <strong>React/CSS reference only</strong>, not for Figma plugin use:</p>
-<div class="codehilite"><pre><span></span><code>XXSmall/Regular  → fontSize:14, lineHeight:&#39;15px&#39;, fontWeight:400  {/* XXSmall/Regular */}
+<div class="codehilite"><pre><span></span><code>XXSmall/Regular  → fontSize:10, lineHeight:&#39;15px&#39;, fontWeight:400  {/* XXSmall/Regular */}
 XXSmall/Strong   → fontSize:10, lineHeight:&#39;15px&#39;, fontWeight:600  {/* XXSmall/Strong */}
 XSmall/Regular   → fontSize:11, lineHeight:&#39;18px&#39;, fontWeight:400  {/* XSmall/Regular */}
 XSmall/Strong    → fontSize:11, lineHeight:&#39;18px&#39;, fontWeight:600  {/* XSmall/Strong */}
@@ -482,11 +490,11 @@ boxShadowTertiary         → Subtle elevation
 boxShadowButtonPrimary    → Primary button (Ant applies automatically)
 boxShadowButtonDefault    → Default button (Ant applies automatically)
 boxShadowButtonError      → Danger button (Ant applies automatically)
-focusPrimary              → Input focus (Ant applies automatically)
-focusError                → Error state focus
-focusWarning              → Warning state focus
 </code></pre></div>
 
+<blockquote>
+<p><strong>Note:</strong> Focus state shadows (<code>focusPrimary</code> / <code>focusError</code> / <code>focusWarning</code>) are <strong>not</strong> exposed as separate effect styles in this library — they're baked into each component's variants. Don't try to apply them by name.</p>
+</blockquote>
 <hr />
 <h2 id="mandatory-rule-5-spacing-8px-grid">MANDATORY RULE 5 — Spacing (8px grid)</h2>
 <div class="codehilite"><pre><span></span><code><span class="mf">4</span><span class="n">px</span><span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">icon</span><span class="o">-</span><span class="kr">to</span><span class="o">-</span><span class="n">text</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="n">tag</span><span class="o">/</span><span class="n">badge</span><span class="w">       </span><span class="p">(</span><span class="n">marginXXS</span><span class="p">)</span><span class="w"></span>
@@ -533,32 +541,11 @@ Layer 1: #F5F5F5                       → Page canvas (colorBgLayout)
 → <span class="nv">Everything</span> <span class="k">else</span> <span class="nv">gets</span> <span class="nv">default</span> <span class="o">/</span> <span class="nv">link</span> <span class="o">/</span> <span class="nv">text</span>
 </code></pre></div>
 
-<h3 id="examples">Examples</h3>
-<div class="codehilite"><pre><span></span><code>// ✅ CORRECT — form footer: Save is the CTA
+<h3 id="examples-one-good-one-bad-keep-it-focused">Examples (one good, one bad — keep it focused)</h3>
+<div class="codehilite"><pre><span></span><code>// ✅ CORRECT — exactly ONE primary, the rest are default
 <span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
   <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>                   {/* default — secondary */}
   <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save<span class="nt">&lt;/Button&gt;</span>      {/* primary — main CTA */}
-<span class="nt">&lt;/Space&gt;</span>
-
-// ✅ CORRECT — confirmation modal: Confirm is the CTA
-<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;Button&gt;</span>Go Back<span class="nt">&lt;/Button&gt;</span>                  {/* default */}
-  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Confirm<span class="nt">&lt;/Button&gt;</span>   {/* primary — main CTA */}
-<span class="nt">&lt;/Space&gt;</span>
-
-// ✅ CORRECT — destructive modal: Delete is the CTA (danger variant)
-<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>                   {/* default */}
-  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span> <span class="err">danger</span><span class="nt">&gt;</span>Delete<span class="nt">&lt;/Button&gt;</span>  {/* primary danger — main CTA */}
-<span class="nt">&lt;/Space&gt;</span>
-
-// ✅ CORRECT — list page toolbar: Create is the CTA
-<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;Button</span> <span class="na">icon=</span><span class="s">{&lt;FilterOutlined</span> <span class="nt">/&gt;</span>}&gt;Filter<span class="nt">&lt;/Button&gt;</span>    {/* default */}
-  <span class="nt">&lt;Button</span> <span class="na">icon=</span><span class="s">{&lt;ExportOutlined</span> <span class="nt">/&gt;</span>}&gt;Export<span class="nt">&lt;/Button&gt;</span>    {/* default */}
-  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span> <span class="na">icon=</span><span class="s">{&lt;PlusOutlined</span> <span class="nt">/&gt;</span>}&gt;      {/* primary — main CTA */}
-    Create Job
-  <span class="nt">&lt;/Button&gt;</span>
 <span class="nt">&lt;/Space&gt;</span>
 
 // ❌ WRONG — two primaries, user doesn&#39;t know which to click
@@ -566,49 +553,35 @@ Layer 1: #F5F5F5                       → Page canvas (colorBgLayout)
   <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save Draft<span class="nt">&lt;/Button&gt;</span>
   <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/Button&gt;</span>
 <span class="nt">&lt;/Space&gt;</span>
-
-// ✅ FIX — Submit is the real CTA
-<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;Button&gt;</span>Save Draft<span class="nt">&lt;/Button&gt;</span>               {/* default */}
-  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/Button&gt;</span>    {/* primary — main CTA */}
-<span class="nt">&lt;/Space&gt;</span>
-
-// ❌ WRONG — multiple buttons, none is primary
-<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>
-  <span class="nt">&lt;Button&gt;</span>Save<span class="nt">&lt;/Button&gt;</span>
-<span class="nt">&lt;/Space&gt;</span>
-
-// ✅ FIX — always mark the CTA
-<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>
-  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save<span class="nt">&lt;/Button&gt;</span>      {/* primary — main CTA */}
-<span class="nt">&lt;/Space&gt;</span>
 </code></pre></div>
 
+<blockquote>
+<p>Apply the same pattern to modals (Cancel + Confirm), destructive flows (Cancel + <code>primary danger</code> Delete), and toolbars (Filter/Export + primary Create). The principle never changes: <strong>one primary CTA per screen, everything else is default/link/text.</strong></p>
+</blockquote>
 <h3 id="in-figma-plugin-code">In Figma plugin code</h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">// When placing multiple buttons, always identify the CTA first</span>
-<span class="c1">// Then use the Primary variant for that button, Default for the rest</span>
+<div class="codehilite"><pre><span></span><code><span class="c1">// When placing multiple buttons, always identify the CTA first.</span>
+<span class="c1">// QMAS has THREE separate Button component sets — pick the right key per role.</span>
+<span class="kd">const</span> <span class="nx">QMAS_BUTTON_KEYS</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">Primary</span><span class="o">:</span> <span class="s1">&#39;ea1bf5e1a1938d5470bab8292dcaa51ed0dd290a&#39;</span><span class="p">,</span>
+  <span class="nx">Default</span><span class="o">:</span> <span class="s1">&#39;513ffe289cdcf781eaf16e30543226c93ee91aae&#39;</span><span class="p">,</span>
+  <span class="nx">Danger</span><span class="o">:</span>  <span class="s1">&#39;25cd90c98741332e44ef4b26c9e3b422d5dc9b92&#39;</span><span class="p">,</span>
+<span class="p">};</span>
 
-<span class="kd">const</span> <span class="nx">buttonSet</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
-  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT_SET&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;Button&#39;</span>
-<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentSetNode</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">primaryVariant</span> <span class="o">=</span> <span class="nx">buttonSet</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
-  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;Type=Primary&#39;</span><span class="p">)</span>
-<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">;</span>
-
-<span class="kd">const</span> <span class="nx">defaultVariant</span> <span class="o">=</span> <span class="nx">buttonSet</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
-  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;Type=Default&#39;</span><span class="p">)</span>
-<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">primarySet</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">importComponentSetByKeyAsync</span><span class="p">(</span><span class="nx">QMAS_BUTTON_KEYS</span><span class="p">.</span><span class="nx">Primary</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">defaultSet</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">importComponentSetByKeyAsync</span><span class="p">(</span><span class="nx">QMAS_BUTTON_KEYS</span><span class="p">.</span><span class="nx">Default</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">pick</span> <span class="o">=</span> <span class="p">(</span><span class="nx">set</span>: <span class="kt">ComponentSetNode</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">set</span><span class="p">.</span><span class="nx">defaultVariant</span> <span class="o">??</span> <span class="p">(</span><span class="nx">set</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">);</span>
 
 <span class="c1">// CTA gets Primary</span>
-<span class="kd">const</span> <span class="nx">saveBtn</span> <span class="o">=</span> <span class="nx">primaryVariant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
-<span class="nx">saveBtn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Save&#39;</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">saveBtn</span> <span class="o">=</span> <span class="nx">pick</span><span class="p">(</span><span class="nx">primarySet</span><span class="p">).</span><span class="nx">createInstance</span><span class="p">();</span>
+<span class="nx">saveBtn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">Label</span><span class="o">:</span> <span class="s1">&#39;Save&#39;</span> <span class="p">});</span>
+<span class="c1">// ⚠️ REMINDER: any text node you modify INSIDE this instance must stay bound to a QMAS Text Style.</span>
+<span class="c1">//    Use `setTextStyleIdAsync()` — do NOT set fontSize / fontName / fontWeight manually,</span>
+<span class="c1">//    that detaches the token and is the v10 regression we&#39;re trying to prevent.</span>
 
 <span class="c1">// Secondary gets Default</span>
-<span class="kd">const</span> <span class="nx">cancelBtn</span> <span class="o">=</span> <span class="nx">defaultVariant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
-<span class="nx">cancelBtn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Cancel&#39;</span> <span class="p">});</span>
+<span class="kd">const</span> <span class="nx">cancelBtn</span> <span class="o">=</span> <span class="nx">pick</span><span class="p">(</span><span class="nx">defaultSet</span><span class="p">).</span><span class="nx">createInstance</span><span class="p">();</span>
+<span class="nx">cancelBtn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">Label</span><span class="o">:</span> <span class="s1">&#39;Cancel&#39;</span> <span class="p">});</span>
+<span class="c1">// ⚠️ Same rule: keep all text bound to QMAS Text Styles, all colors bound to variables.</span>
 </code></pre></div>
 
 <hr />
@@ -650,6 +623,32 @@ Layer 1: #F5F5F5                       → Page canvas (colorBgLayout)
 </code></pre></div>
 
 <hr />
+<h2 id="final-mandatory-checklist-run-this-before-every-output">⛔ FINAL MANDATORY CHECKLIST — run this BEFORE every output</h2>
+<blockquote>
+<p>Stop. Before you return any UI code or Figma plugin code, answer each item below.
+If any answer is "no", <strong>fix the code first, then return</strong>.</p>
+</blockquote>
+<p><strong>Buttons &amp; UX (Rule 8)</strong>
+1. Does this screen / modal / toolbar have <strong>exactly ONE</strong> <code>type="primary"</code> button as the main CTA?
+2. Are all other buttons set to <code>default</code> / <code>link</code> / <code>text</code> (or <code>primary danger</code> only when destructive)?</p>
+<p><strong>Text styles (Rule 2) — the v10 regression we're preventing</strong>
+3. In <strong>Figma plugin code</strong>: is every text node bound with <code>setTextStyleIdAsync()</code>?
+   → NO raw <code>fontSize</code>, <code>fontName</code>, <code>fontWeight</code>, <code>lineHeight</code>, or <code>fontFamily</code> writes anywhere.
+4. In <strong>React / CSS</strong>: does every text element apply <code>fontSize</code> + <code>lineHeight</code> + <code>fontWeight</code> together, with a <code>/* Style/Name */</code> comment naming the QMAS Text Style?</p>
+<p><strong>Colors (Rule 3)</strong>
+5. In <strong>Figma plugin code</strong>: is every color bound with <code>setBoundVariableForPaint()</code>?
+   → NO raw <code>{ r, g, b }</code> literals, NO hex, NO direct RGB.
+6. In <strong>React / CSS</strong>: does every color reference use a QMAS token value with a <code>/* colorXxx */</code> comment?
+   → NO <code>#000</code>, NO <code>#fff</code> for page backgrounds, NO arbitrary hex.</p>
+<p><strong>Effects, spacing, radius (Rules 4–6)</strong>
+7. Shadows bound via <code>setEffectStyleIdAsync()</code> — no custom <code>boxShadow</code>?
+8. Spacing on the 8-px grid (4 / 8 / 16 / 24 / 32)?
+9. Radius is 6 (interactive) / 8 (container) / 4 (dense) / 2 (tag) — no custom values?</p>
+<p><strong>Components (Rules 0–1)</strong>
+10. Used <code>createInstance()</code> from existing QMAS components instead of building frames from scratch?
+11. Used Ant Design v6 <code>&lt;Button&gt;</code> / <code>&lt;Input&gt;</code> / <code>&lt;Card&gt;</code> etc. instead of raw HTML?</p>
+<p>If all 11 are ✅, ship it. Otherwise, rewrite the offending lines and re-check.</p>
+<hr />
 <h2 id="figma-source-files">Figma source files</h2>
 <ul>
 <li><strong>Tokens:</strong> <code>T9HItYJ1nxXEJPiVF5xdxM</code> (Ant Design System v6 (QMAS))</li>
@@ -659,9 +658,9 @@ Layer 1: #F5F5F5                       → Page canvas (colorBgLayout)
 <li><strong>Sidebar:</strong> Node <code>10754:29156</code></li>
 </ul>
 <p><strong>The Figma file always wins over this skill.</strong></p>
-<p>Last synced: <strong>2026-05-19</strong></p>
+<p>Last synced: <strong>2026-05-20</strong> (v12 — three live-test corrections: (1) Rule 0/8 use three separate Button component sets with real keys, not one set with <code>Type=</code> variants; (2) Rule 2 XXSmall/Regular size 14→10 typo fix; (3) Rule 4 removed non-existent focus* effect styles. Roboto stays — verified via <code>figma.importStyleByKeyAsync</code>.)</p>
   </article>
-  <div class="footer">QMAS Design System · auto-generated from <code>files10/SKILL-v10-final.md</code></div>
+  <div class="footer">QMAS Design System · auto-generated from <code>files12/SKILL-v12-final.md</code></div>
 </div>
 </body>
 </html>
