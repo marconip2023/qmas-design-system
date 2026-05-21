@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QMAS Design System — files10</title>
+<style>
+:root {
+  --bg: #F5F5F5; --surface: #FFFFFF; --border: #F0F0F0; --border-strong: #D9D9D9;
+  --text: rgba(0,0,0,0.88); --text-secondary: rgba(0,0,0,0.65); --text-tertiary: rgba(0,0,0,0.45);
+  --primary: #1677FF; --primary-bg: #E6F4FF;
+  --code-bg: #0d1117; --code-text: #e6edf3;
+  --shadow-card: 0 1px 2px rgba(0,0,0,0.03), 0 1px 6px -1px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px; line-height: 22px; -webkit-font-smoothing: antialiased; }
+.page-shell { max-width: 920px; margin: 0 auto; padding: 32px 24px 80px; }
+.hero { background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow-card); }
+.hero .tag { display: inline-block; background: var(--primary-bg); color: var(--primary);
+  font-size: 12px; line-height: 20px; font-weight: 600; padding: 2px 8px; border-radius: 2px;
+  margin-bottom: 16px; letter-spacing: 0.02em; }
+.hero h1 { font-size: 30px; line-height: 38px; font-weight: 600; margin: 0 0 12px 0; }
+.hero p.lead { font-size: 14px; line-height: 22px; color: var(--text-secondary); margin: 0; }
+.hero .meta { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border);
+  font-size: 12px; line-height: 20px; color: var(--text-tertiary);
+  display: flex; gap: 24px; flex-wrap: wrap; }
+.hero .meta strong { color: var(--text-secondary); font-weight: 600; }
+.content { background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 40px 48px; box-shadow: var(--shadow-card); }
+.content h1 { font-size: 30px; line-height: 38px; font-weight: 600; margin: 32px 0 16px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content h1:first-child { margin-top: 0; }
+.content h2 { font-size: 24px; line-height: 32px; font-weight: 600; margin: 32px 0 12px; }
+.content h3 { font-size: 20px; line-height: 28px; font-weight: 600; margin: 24px 0 8px; }
+.content h4 { font-size: 16px; line-height: 24px; font-weight: 600; margin: 16px 0 8px; }
+.content p { margin: 0 0 12px; color: var(--text); }
+.content ul, .content ol { margin: 0 0 12px; padding-left: 24px; }
+.content li { margin-bottom: 4px; }
+.content blockquote { margin: 16px 0; padding: 12px 16px; background: var(--primary-bg);
+  border-left: 3px solid var(--primary); color: var(--text); border-radius: 4px; }
+.content blockquote p:last-child { margin-bottom: 0; }
+.content hr { border: 0; border-top: 1px solid var(--border); margin: 32px 0; }
+.content table { border-collapse: collapse; margin: 16px 0; width: 100%;
+  font-size: 13px; line-height: 20px; }
+.content table th, .content table td { border: 1px solid var(--border-strong);
+  padding: 8px 12px; text-align: left; vertical-align: top; }
+.content table th { background: #FAFAFA; font-weight: 600; }
+.content code { background: #F5F5F5; border: 1px solid var(--border); padding: 1px 6px;
+  border-radius: 4px; font-family: 'JetBrains Mono', 'Roboto Mono', Menlo, monospace; font-size: 12.5px; }
+.content pre { background: var(--code-bg); color: var(--code-text); padding: 16px 20px;
+  border-radius: 6px; overflow-x: auto; font-size: 12.5px; line-height: 20px; margin: 12px 0 16px; }
+.content pre code { background: transparent; border: 0; padding: 0; color: inherit; font-size: inherit; }
+.content a { color: var(--primary); text-decoration: none; }
+.content a:hover { text-decoration: underline; }
+.content strong { font-weight: 600; }
+.footer { margin-top: 32px; text-align: center; color: var(--text-tertiary);
+  font-size: 12px; line-height: 20px; }
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #49483e }
+.codehilite { background: #272822; color: #f8f8f2 }
+.codehilite .c { color: #75715e } /* Comment */
+.codehilite .err { color: #960050; background-color: #1e0010 } /* Error */
+.codehilite .esc { color: #f8f8f2 } /* Escape */
+.codehilite .g { color: #f8f8f2 } /* Generic */
+.codehilite .k { color: #66d9ef } /* Keyword */
+.codehilite .l { color: #ae81ff } /* Literal */
+.codehilite .n { color: #f8f8f2 } /* Name */
+.codehilite .o { color: #f92672 } /* Operator */
+.codehilite .x { color: #f8f8f2 } /* Other */
+.codehilite .p { color: #f8f8f2 } /* Punctuation */
+.codehilite .ch { color: #75715e } /* Comment.Hashbang */
+.codehilite .cm { color: #75715e } /* Comment.Multiline */
+.codehilite .cp { color: #75715e } /* Comment.Preproc */
+.codehilite .cpf { color: #75715e } /* Comment.PreprocFile */
+.codehilite .c1 { color: #75715e } /* Comment.Single */
+.codehilite .cs { color: #75715e } /* Comment.Special */
+.codehilite .gd { color: #f92672 } /* Generic.Deleted */
+.codehilite .ge { color: #f8f8f2; font-style: italic } /* Generic.Emph */
+.codehilite .gr { color: #f8f8f2 } /* Generic.Error */
+.codehilite .gh { color: #f8f8f2 } /* Generic.Heading */
+.codehilite .gi { color: #a6e22e } /* Generic.Inserted */
+.codehilite .go { color: #66d9ef } /* Generic.Output */
+.codehilite .gp { color: #f92672; font-weight: bold } /* Generic.Prompt */
+.codehilite .gs { color: #f8f8f2; font-weight: bold } /* Generic.Strong */
+.codehilite .gu { color: #75715e } /* Generic.Subheading */
+.codehilite .gt { color: #f8f8f2 } /* Generic.Traceback */
+.codehilite .kc { color: #66d9ef } /* Keyword.Constant */
+.codehilite .kd { color: #66d9ef } /* Keyword.Declaration */
+.codehilite .kn { color: #f92672 } /* Keyword.Namespace */
+.codehilite .kp { color: #66d9ef } /* Keyword.Pseudo */
+.codehilite .kr { color: #66d9ef } /* Keyword.Reserved */
+.codehilite .kt { color: #66d9ef } /* Keyword.Type */
+.codehilite .ld { color: #e6db74 } /* Literal.Date */
+.codehilite .m { color: #ae81ff } /* Literal.Number */
+.codehilite .s { color: #e6db74 } /* Literal.String */
+.codehilite .na { color: #a6e22e } /* Name.Attribute */
+.codehilite .nb { color: #f8f8f2 } /* Name.Builtin */
+.codehilite .nc { color: #a6e22e } /* Name.Class */
+.codehilite .no { color: #66d9ef } /* Name.Constant */
+.codehilite .nd { color: #a6e22e } /* Name.Decorator */
+.codehilite .ni { color: #f8f8f2 } /* Name.Entity */
+.codehilite .ne { color: #a6e22e } /* Name.Exception */
+.codehilite .nf { color: #a6e22e } /* Name.Function */
+.codehilite .nl { color: #f8f8f2 } /* Name.Label */
+.codehilite .nn { color: #f8f8f2 } /* Name.Namespace */
+.codehilite .nx { color: #a6e22e } /* Name.Other */
+.codehilite .py { color: #f8f8f2 } /* Name.Property */
+.codehilite .nt { color: #f92672 } /* Name.Tag */
+.codehilite .nv { color: #f8f8f2 } /* Name.Variable */
+.codehilite .ow { color: #f92672 } /* Operator.Word */
+.codehilite .w { color: #f8f8f2 } /* Text.Whitespace */
+.codehilite .mb { color: #ae81ff } /* Literal.Number.Bin */
+.codehilite .mf { color: #ae81ff } /* Literal.Number.Float */
+.codehilite .mh { color: #ae81ff } /* Literal.Number.Hex */
+.codehilite .mi { color: #ae81ff } /* Literal.Number.Integer */
+.codehilite .mo { color: #ae81ff } /* Literal.Number.Oct */
+.codehilite .sa { color: #e6db74 } /* Literal.String.Affix */
+.codehilite .sb { color: #e6db74 } /* Literal.String.Backtick */
+.codehilite .sc { color: #e6db74 } /* Literal.String.Char */
+.codehilite .dl { color: #e6db74 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #e6db74 } /* Literal.String.Doc */
+.codehilite .s2 { color: #e6db74 } /* Literal.String.Double */
+.codehilite .se { color: #ae81ff } /* Literal.String.Escape */
+.codehilite .sh { color: #e6db74 } /* Literal.String.Heredoc */
+.codehilite .si { color: #e6db74 } /* Literal.String.Interpol */
+.codehilite .sx { color: #e6db74 } /* Literal.String.Other */
+.codehilite .sr { color: #e6db74 } /* Literal.String.Regex */
+.codehilite .s1 { color: #e6db74 } /* Literal.String.Single */
+.codehilite .ss { color: #e6db74 } /* Literal.String.Symbol */
+.codehilite .bp { color: #f8f8f2 } /* Name.Builtin.Pseudo */
+.codehilite .fm { color: #a6e22e } /* Name.Function.Magic */
+.codehilite .vc { color: #f8f8f2 } /* Name.Variable.Class */
+.codehilite .vg { color: #f8f8f2 } /* Name.Variable.Global */
+.codehilite .vi { color: #f8f8f2 } /* Name.Variable.Instance */
+.codehilite .vm { color: #f8f8f2 } /* Name.Variable.Magic */
+.codehilite .il { color: #ae81ff } /* Literal.Number.Integer.Long */
+.codehilite { background: var(--code-bg) !important; padding: 0; margin: 0; }
+</style>
+</head>
+<body>
+<div class="page-shell">
+  <div class="hero">
+    <span class="tag">QMAS Design System · files10</span>
+    <h1>QMAS Design System — Mandatory Instructions</h1>
+    <p class="lead">QMAS design system skill for Ant Design v6 QMAS. TRIGGER THIS SKILL WHENEVER: (1) user says "QMAS" or "Ant Design v6" or "Ant Design System"; (2) user asks to build/design/code UI, components, pages, buttons, cards, forms, tables, modals, dashboards for QMAS product; (3) user mentions any design token, text style, effect style, or color; (4) user says "整個" (build) + UI word + "QMAS"; (5) user shows QMAS Figma file or asks about QMAS design. This skill is MANDATORY for any QMAS UI work. Use REAL QMAS Text Styles (Base, Large, Heading/2, etc.) and Effect Styles (boxShadowCard, focusPrimary, etc.) — never raw px values.</p>
+    <div class="meta">
+      <span><strong>Source folder:</strong> files10/</span>
+      <span><strong>Source file:</strong> SKILL-v10-final.md</span>
+      <span><strong>Last synced:</strong> 2026-05-19</span>
+    </div>
+  </div>
+  <article class="content">
+  <h1 id="qmas-design-system-mandatory-instructions">QMAS Design System — Mandatory Instructions</h1>
+<p>You are building UI for <strong>QMAS</strong>, built on <strong>Ant Design v6</strong> with a custom Figma design system. These instructions are <strong>mandatory</strong> — every rule must be followed on every response without exception.</p>
+<hr />
+<h2 id="critical-lesson-how-tokens-actually-work-in-figma">Critical lesson — how tokens actually work in Figma</h2>
+<blockquote>
+<p>This is the most important section. Read before writing any Figma plugin code.</p>
+</blockquote>
+<h3 id="wrong-hardcoding-values-detaches-from-design-system">❌ WRONG — hardcoding values (detaches from design system)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// FORBIDDEN — hardcoding fontSize, fontWeight, fontName</span>
+<span class="nx">node</span><span class="p">.</span><span class="nx">fontSize</span> <span class="o">=</span> <span class="mf">14</span><span class="p">;</span>
+<span class="nx">node</span><span class="p">.</span><span class="nx">fontWeight</span> <span class="o">=</span> <span class="mf">600</span><span class="p">;</span>
+<span class="nx">node</span><span class="p">.</span><span class="nx">fontName</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">family</span><span class="o">:</span> <span class="s1">&#39;Roboto&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="o">:</span> <span class="s1">&#39;Bold&#39;</span> <span class="p">};</span>
+<span class="nx">node</span><span class="p">.</span><span class="nx">fills</span> <span class="o">=</span> <span class="p">[{</span> <span class="kr">type</span><span class="o">:</span> <span class="s1">&#39;SOLID&#39;</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="p">{</span> <span class="nx">r</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">g</span>: <span class="kt">0</span><span class="p">,</span> <span class="nx">b</span>: <span class="kt">0</span> <span class="p">}</span> <span class="p">}];</span>
+</code></pre></div>
+
+<p>This breaks the design system. If tokens change, these nodes will <strong>not</strong> update automatically.</p>
+<h3 id="correct-binding-to-tokens-stays-connected-to-design-system">✅ CORRECT — binding to tokens (stays connected to design system)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// REQUIRED — bind text style by ID</span>
+<span class="kd">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">getLocalTextStylesAsync</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">baseStrong</span> <span class="o">=</span> <span class="nx">styles</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">s</span> <span class="p">=&gt;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;Base/Strong&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">node</span><span class="p">.</span><span class="nx">setTextStyleIdAsync</span><span class="p">(</span><span class="nx">baseStrong</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+<span class="c1">// ↑ fontName, fontSize, lineHeight all come from the style — never override after this</span>
+
+<span class="c1">// REQUIRED — bind color variable</span>
+<span class="kd">const</span> <span class="nx">vars</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">variables</span><span class="p">.</span><span class="nx">getLocalVariablesAsync</span><span class="p">();</span>
+<span class="kd">const</span> <span class="nx">colorText</span> <span class="o">=</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">v</span> <span class="p">=&gt;</span> <span class="nx">v</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;colorText&#39;</span><span class="p">);</span>
+<span class="nx">figma</span><span class="p">.</span><span class="nx">variables</span><span class="p">.</span><span class="nx">setBoundVariableForPaint</span><span class="p">(</span>
+  <span class="nx">node</span><span class="p">.</span><span class="nx">fills</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span>
+  <span class="s1">&#39;color&#39;</span><span class="p">,</span>
+  <span class="nx">colorText</span>
+<span class="p">);</span>
+<span class="c1">// ↑ Never write RGB values directly</span>
+</code></pre></div>
+
+<h3 id="rules-that-follow-from-this">Rules that follow from this</h3>
+<ol>
+<li><strong>Never override <code>fontName</code> after calling <code>setTextStyleIdAsync()</code></strong> — doing so detaches the style binding and hardcodes the font.</li>
+<li><strong>Never write RGB/hex directly</strong> — always use <code>setBoundVariableForPaint()</code> with the variable.</li>
+<li><strong>Font is Roboto</strong> — it comes from the text style binding, not from manual <code>fontName</code> assignment. Do not load or assign fonts manually.</li>
+<li><strong>The values in the Text Style table below are for human reference only</strong> — in Figma plugin code, always bind by style ID, not by reproducing the values.</li>
+</ol>
+<hr />
+<h2 id="step-0-before-writing-any-code-answer-these-questions">STEP 0 — Before writing any code, answer these questions</h2>
+<p><strong>For Figma plugin code:</strong>
+1. <strong>Does the QMAS file already have this component?</strong> → Use <code>findOne()</code> + <code>createInstance()</code>. Never build from scratch.
+2. <strong>Which QMAS Text Style applies?</strong> → Bind with <code>setTextStyleIdAsync()</code>. Never set <code>fontSize</code>/<code>fontWeight</code> manually.
+3. <strong>Which QMAS Color Variable applies?</strong> → Bind with <code>setBoundVariableForPaint()</code>. Never write hex/RGB.
+4. <strong>Which QMAS Effect Style applies?</strong> → Bind with <code>setEffectStyleIdAsync()</code>. Never write custom <code>boxShadow</code>.
+5. <strong>Never override any bound property</strong> after binding — that detaches the token.</p>
+<p><strong>For React code:</strong>
+1. <strong>Does Ant Design v6 have a component for this?</strong> → Use <code>&lt;Button&gt;</code>, <code>&lt;Input&gt;</code>, <code>&lt;Card&gt;</code> etc. Never use raw HTML.
+2. <strong>Which QMAS Text Style applies?</strong> → Apply fontSize + lineHeight + fontWeight together with comment.
+3. <strong>Which color token applies?</strong> → Use token value with comment. Never raw hex.</p>
+<hr />
+<h2 id="mandatory-rule-0-use-existing-qmas-components-first-figma-plugin">MANDATORY RULE 0 — Use existing QMAS components first (Figma plugin)</h2>
+<blockquote>
+<p>This is the highest priority rule for Figma plugin code.</p>
+</blockquote>
+<p><strong>NEVER build a component from scratch using frames + fills + text nodes.</strong>
+The QMAS file already has fully-built, token-bound components. Always use them.</p>
+<h3 id="forbidden-building-from-scratch">❌ FORBIDDEN — building from scratch</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// WRONG — hardcoded frame, not connected to design system</span>
+<span class="kd">const</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">createFrame</span><span class="p">();</span>
+<span class="nx">btn</span><span class="p">.</span><span class="nx">fills</span> <span class="o">=</span> <span class="p">[{</span> <span class="kr">type</span><span class="o">:</span> <span class="s1">&#39;SOLID&#39;</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span> <span class="p">{</span> <span class="nx">r</span>: <span class="kt">0.09</span><span class="p">,</span> <span class="nx">g</span>: <span class="kt">0.47</span><span class="p">,</span> <span class="nx">b</span>: <span class="kt">1</span> <span class="p">}</span> <span class="p">}];</span>
+<span class="nx">btn</span><span class="p">.</span><span class="nx">cornerRadius</span> <span class="o">=</span> <span class="mf">6</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">label</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">createText</span><span class="p">();</span>
+<span class="nx">label</span><span class="p">.</span><span class="nx">characters</span> <span class="o">=</span> <span class="s1">&#39;Save&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="required-use-component-instance">✅ REQUIRED — use component instance</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// STEP 1 — Find the component set</span>
+<span class="kd">const</span> <span class="nx">buttonSet</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
+  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT_SET&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;Button&#39;</span>
+<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentSetNode</span><span class="p">;</span>
+
+<span class="c1">// STEP 2 — Find the variant you need</span>
+<span class="kd">const</span> <span class="nx">primaryVariant</span> <span class="o">=</span> <span class="nx">buttonSet</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
+  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;Type=Primary&#39;</span><span class="p">)</span>
+<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">;</span>
+
+<span class="c1">// STEP 3 — Create instance (inherits ALL token bindings)</span>
+<span class="kd">const</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nx">primaryVariant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
+<span class="nx">btn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Save&#39;</span> <span class="p">});</span>
+<span class="nx">figma</span><span class="p">.</span><span class="nx">currentPage</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">btn</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="why-component-instances-are-correct">Why component instances are correct</h3>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Token bound?</th>
+<th>Auto-updates?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>✅ <code>createInstance()</code></td>
+<td>Yes — inherits from component</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>❌ Manual frame + fills</td>
+<td>No — hardcoded</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h3 id="component-search-pattern-always-do-this-first">Component search pattern (always do this first)</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Before writing ANY Figma plugin code, search for existing components:</span>
+<span class="kd">const</span> <span class="nx">findSet</span> <span class="o">=</span> <span class="p">(</span><span class="nx">name</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span>
+  <span class="nx">figma</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span> <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT_SET&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">name</span><span class="p">);</span>
+
+<span class="c1">// QMAS components available in file T9HItYJ1nxXEJPiVF5xdxM:</span>
+<span class="c1">// Button, Input, Tag, Alert, Divider, Space, Icon (see Node 65:142)</span>
+<span class="c1">// If found → createInstance()</span>
+<span class="c1">// If NOT found → build from primitives + bind all tokens manually</span>
+</code></pre></div>
+
+<hr />
+<h2 id="mandatory-rule-1-ant-design-v6-components-first">MANDATORY RULE 1 — Ant Design v6 components first</h2>
+<p><strong>Use Ant Design <code>antd</code> components. Raw HTML is forbidden for anything Ant covers.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>✅ Use</th>
+<th>❌ Never</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Button</td>
+<td><code>&lt;Button&gt;</code></td>
+<td><code>&lt;div onClick&gt;</code></td>
+</tr>
+<tr>
+<td>Input</td>
+<td><code>&lt;Input&gt;</code></td>
+<td><code>&lt;input&gt;</code></td>
+</tr>
+<tr>
+<td>Select</td>
+<td><code>&lt;Select&gt;</code></td>
+<td>Custom dropdown</td>
+</tr>
+<tr>
+<td>Table</td>
+<td><code>&lt;Table&gt;</code></td>
+<td>Raw <code>&lt;table&gt;</code></td>
+</tr>
+<tr>
+<td>Modal</td>
+<td><code>&lt;Modal&gt;</code></td>
+<td><code>&lt;div&gt;</code> overlay</td>
+</tr>
+<tr>
+<td>Form</td>
+<td><code>&lt;Form&gt;</code> + <code>&lt;Form.Item&gt;</code></td>
+<td>Manual state</td>
+</tr>
+<tr>
+<td>Menu/Nav</td>
+<td><code>&lt;Menu&gt;</code></td>
+<td>Custom nav list</td>
+</tr>
+<tr>
+<td>Card</td>
+<td><code>&lt;Card&gt;</code></td>
+<td><code>&lt;div&gt;</code> with border</td>
+</tr>
+<tr>
+<td>Icon</td>
+<td><code>@ant-design/icons</code> (Node 65:142)</td>
+<td>Inline SVG</td>
+</tr>
+<tr>
+<td>Loading</td>
+<td><code>&lt;Spin&gt;</code> / <code>&lt;Skeleton&gt;</code></td>
+<td>Custom spinner</td>
+</tr>
+<tr>
+<td>Alert</td>
+<td><code>&lt;Alert&gt;</code></td>
+<td>Custom div</td>
+</tr>
+<tr>
+<td>Tag</td>
+<td><code>&lt;Tag&gt;</code></td>
+<td>Custom span</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mandatory-rule-2-qmas-text-styles-bind-never-hardcode">MANDATORY RULE 2 — QMAS Text Styles (bind, never hardcode)</h2>
+<h3 id="in-figma-plugin-code-always-bind-by-style-id">In Figma plugin code — always bind by style ID</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">applyTextStyle</span><span class="p">(</span><span class="nx">node</span>: <span class="kt">TextNode</span><span class="p">,</span> <span class="nx">styleName</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">getLocalTextStylesAsync</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="nx">styles</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">s</span> <span class="p">=&gt;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">styleName</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">style</span><span class="p">)</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="sb">`Text style &quot;</span><span class="si">${</span><span class="nx">styleName</span><span class="si">}</span><span class="sb">&quot; not found`</span><span class="p">);</span>
+  <span class="k">await</span> <span class="nx">node</span><span class="p">.</span><span class="nx">setTextStyleIdAsync</span><span class="p">(</span><span class="nx">style</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+  <span class="c1">// ✅ Done. Do NOT set fontName, fontSize, lineHeight after this.</span>
+<span class="p">}</span>
+
+<span class="c1">// Usage</span>
+<span class="k">await</span> <span class="nx">applyTextStyle</span><span class="p">(</span><span class="nx">titleNode</span><span class="p">,</span> <span class="s1">&#39;Heading/2&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">applyTextStyle</span><span class="p">(</span><span class="nx">bodyNode</span><span class="p">,</span> <span class="s1">&#39;Base/Regular&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">applyTextStyle</span><span class="p">(</span><span class="nx">captionNode</span><span class="p">,</span> <span class="s1">&#39;Small/Regular&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="in-react-css-code-apply-all-three-values-together-with-comment">In React / CSS code — apply all three values together with comment</h3>
+<p>The values below are for <strong>React/CSS reference only</strong>, not for Figma plugin use:</p>
+<div class="codehilite"><pre><span></span><code>XXSmall/Regular  → fontSize:14, lineHeight:&#39;15px&#39;, fontWeight:400  {/* XXSmall/Regular */}
+XXSmall/Strong   → fontSize:10, lineHeight:&#39;15px&#39;, fontWeight:600  {/* XXSmall/Strong */}
+XSmall/Regular   → fontSize:11, lineHeight:&#39;18px&#39;, fontWeight:400  {/* XSmall/Regular */}
+XSmall/Strong    → fontSize:11, lineHeight:&#39;18px&#39;, fontWeight:600  {/* XSmall/Strong */}
+Small/Regular    → fontSize:12, lineHeight:&#39;20px&#39;, fontWeight:400  {/* Small/Regular */}
+Small/Strong     → fontSize:12, lineHeight:&#39;20px&#39;, fontWeight:600  {/* Small/Strong */}
+Base/Regular     → fontSize:14, lineHeight:&#39;22px&#39;, fontWeight:400  {/* Base/Regular ← BODY DEFAULT */}
+Base/Strong      → fontSize:14, lineHeight:&#39;22px&#39;, fontWeight:600  {/* Base/Strong */}
+Large/Regular    → fontSize:16, lineHeight:&#39;24px&#39;, fontWeight:400  {/* Large/Regular */}
+Large/Strong     → fontSize:16, lineHeight:&#39;24px&#39;, fontWeight:600  {/* Large/Strong */}
+Huge/Regular     → fontSize:20, lineHeight:&#39;28px&#39;, fontWeight:400  {/* Huge/Regular */}
+Huge/Strong      → fontSize:20, lineHeight:&#39;28px&#39;, fontWeight:600  {/* Huge/Strong */}
+Heading/1        → fontSize:38, lineHeight:&#39;46px&#39;, fontWeight:600  {/* Heading/1 */}
+Heading/2        → fontSize:30, lineHeight:&#39;38px&#39;, fontWeight:600  {/* Heading/2 */}
+Heading/3        → fontSize:24, lineHeight:&#39;32px&#39;, fontWeight:600  {/* Heading/3 */}
+Heading/4        → fontSize:20, lineHeight:&#39;28px&#39;, fontWeight:600  {/* Heading/4 */}
+Heading/5        → fontSize:16, lineHeight:&#39;24px&#39;, fontWeight:600  {/* Heading/5 */}
+</code></pre></div>
+
+<p>Font family is <strong>Roboto</strong> — it comes from the style binding. Never assign <code>fontFamily</code> manually.</p>
+<h3 id="icon-sizing">Icon sizing</h3>
+<p>Icon <code>fontSize</code> must match adjacent text style size:</p>
+<div class="codehilite"><pre><span></span><code><span class="x">// Adjacent = Base (14px) → icon 14px</span>
+<span class="x">&lt;SearchOutlined style=</span><span class="cp">{{</span> <span class="nv">fontSize</span><span class="o">:</span> <span class="m">14</span> <span class="cp">}}</span><span class="x"> /&gt;  {/* Base size */}</span>
+
+<span class="x">// Adjacent = Large (16px) → icon 16px</span>
+<span class="x">&lt;HomeOutlined style=</span><span class="cp">{{</span> <span class="nv">fontSize</span><span class="o">:</span> <span class="m">16</span> <span class="cp">}}</span><span class="x"> /&gt;    {/* Large size */}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="mandatory-rule-3-qmas-color-variables-bind-never-hardcode">MANDATORY RULE 3 — QMAS Color Variables (bind, never hardcode)</h2>
+<h3 id="in-figma-plugin-code-always-bind-by-variable">In Figma plugin code — always bind by variable</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">applyColorVariable</span><span class="p">(</span><span class="nx">node</span>: <span class="kt">SceneNode</span><span class="p">,</span> <span class="nx">variableName</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">vars</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">variables</span><span class="p">.</span><span class="nx">getLocalVariablesAsync</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">variable</span> <span class="o">=</span> <span class="nx">vars</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">v</span> <span class="p">=&gt;</span> <span class="nx">v</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">variableName</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">variable</span><span class="p">)</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="sb">`Variable &quot;</span><span class="si">${</span><span class="nx">variableName</span><span class="si">}</span><span class="sb">&quot; not found`</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">collection</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">variables</span><span class="p">.</span><span class="nx">getVariableCollectionByIdAsync</span><span class="p">(</span>
+    <span class="nx">variable</span><span class="p">.</span><span class="nx">variableCollectionId</span>
+  <span class="p">);</span>
+
+  <span class="c1">// For fills</span>
+  <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;fills&#39;</span> <span class="ow">in</span> <span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">fills</span> <span class="o">=</span> <span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">fills</span><span class="p">));</span>
+    <span class="nx">fills</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">variables</span><span class="p">.</span><span class="nx">setBoundVariableForPaint</span><span class="p">(</span>
+      <span class="nx">fills</span><span class="p">[</span><span class="mf">0</span><span class="p">],</span>
+      <span class="s1">&#39;color&#39;</span><span class="p">,</span>
+      <span class="nx">variable</span>
+    <span class="p">);</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">fills</span> <span class="o">=</span> <span class="nx">fills</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Usage</span>
+<span class="k">await</span> <span class="nx">applyColorVariable</span><span class="p">(</span><span class="nx">textNode</span><span class="p">,</span> <span class="s1">&#39;colorText&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">applyColorVariable</span><span class="p">(</span><span class="nx">frameNode</span><span class="p">,</span> <span class="s1">&#39;colorBgLayout&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">applyColorVariable</span><span class="p">(</span><span class="nx">cardNode</span><span class="p">,</span> <span class="s1">&#39;colorBgContainer&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="color-token-reference-for-reactcss-not-for-figma-plugin">Color token reference (for React/CSS — not for Figma plugin)</h3>
+<div class="codehilite"><pre><span></span><code><span class="nv">colorPrimary</span>         → <span class="sc">#1677</span><span class="nv">FF</span>   <span class="nv">brand</span> <span class="nv">blue</span>, <span class="nv">buttons</span>, <span class="nv">links</span>, <span class="nv">active</span> <span class="nv">nav</span>
+<span class="nv">colorPrimaryHover</span>    → <span class="sc">#4096</span><span class="nv">FF</span>
+<span class="nv">colorPrimaryActive</span>   → <span class="sc">#0958</span><span class="nv">D9</span>
+<span class="nv">colorPrimaryBg</span>       → #<span class="nv">E6F4FF</span>
+<span class="nv">colorSuccess</span>         → <span class="sc">#52</span><span class="nv">C41A</span>
+<span class="nv">colorWarning</span>         → #<span class="nv">FAAD14</span>
+<span class="nv">colorError</span>           → #<span class="nv">FF4D4F</span>
+
+<span class="nv">colorText</span>            → <span class="nv">rgba</span><span class="ss">(</span><span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>.<span class="mi">88</span><span class="ss">)</span>   <span class="nv">primary</span> <span class="nv">text</span> — <span class="nv">NEVER</span> <span class="nv">use</span> <span class="sc">#000</span>
+<span class="nv">colorTextSecondary</span>   → <span class="nv">rgba</span><span class="ss">(</span><span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>.<span class="mi">65</span><span class="ss">)</span>   <span class="nv">subtitles</span>, <span class="nv">helper</span>
+<span class="nv">colorTextTertiary</span>    → <span class="nv">rgba</span><span class="ss">(</span><span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>.<span class="mi">45</span><span class="ss">)</span>   <span class="nv">captions</span>
+<span class="nv">colorTextQuaternary</span>  → <span class="nv">rgba</span><span class="ss">(</span><span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>,<span class="mi">0</span>.<span class="mi">25</span><span class="ss">)</span>   <span class="nv">disabled</span>, <span class="nv">placeholder</span>
+
+<span class="nv">colorBgLayout</span>        → #<span class="nv">F5F5F5</span>   <span class="nv">page</span> <span class="nv">canvas</span> — <span class="nv">NEVER</span> <span class="nv">use</span> <span class="nv">white</span> <span class="k">for</span> <span class="nv">page</span> <span class="nv">bg</span>
+<span class="nv">colorBgContainer</span>     → #<span class="nv">FFFFFF</span>   <span class="nv">card</span> <span class="o">/</span> <span class="nv">modal</span> <span class="nv">surface</span>
+<span class="nv">colorBorder</span>          → #<span class="nv">D9D9D9</span>
+<span class="nv">colorBorderSecondary</span> → #<span class="nv">F0F0F0</span>   <span class="nv">card</span> <span class="nv">border</span>, <span class="nv">dividers</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>// ❌ FORBIDDEN in React
+<span class="nt">&lt;span</span> <span class="na">style=</span><span class="cp">{{</span> <span class="nv">color</span><span class="o">:</span> <span class="s1">&#39;#000000&#39;</span> <span class="cp">}}</span><span class="err">&gt;</span><span class="s">Title&lt;/span</span><span class="nt">&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="cp">{{</span> <span class="nv">background</span><span class="o">:</span> <span class="s1">&#39;#ffffff&#39;</span> <span class="cp">}}</span><span class="err">&gt;</span><span class="s">Card&lt;/div</span><span class="nt">&gt;</span>
+
+// ✅ REQUIRED in React — use token value with comment
+<span class="nt">&lt;span</span> <span class="na">style=</span><span class="cp">{{</span> <span class="nv">color</span><span class="o">:</span> <span class="s1">&#39;rgba(0,0,0,0.88)&#39;</span> <span class="cp">}}</span><span class="err">&gt;</span><span class="s">Title&lt;/span</span><span class="nt">&gt;</span>   {/* colorText */}
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="cp">{{</span> <span class="nv">background</span><span class="o">:</span> <span class="s1">&#39;#F5F5F5&#39;</span> <span class="cp">}}</span><span class="err">&gt;</span><span class="s">Page&lt;/div</span><span class="nt">&gt;</span>           {/* colorBgLayout */}
+</code></pre></div>
+
+<hr />
+<h2 id="mandatory-rule-4-qmas-effect-styles-bind-never-hardcode">MANDATORY RULE 4 — QMAS Effect Styles (bind, never hardcode)</h2>
+<h3 id="in-figma-plugin-code-bind-by-style-id">In Figma plugin code — bind by style ID</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">async</span> <span class="kd">function</span> <span class="nx">applyEffectStyle</span><span class="p">(</span><span class="nx">node</span>: <span class="kt">SceneNode</span><span class="p">,</span> <span class="nx">styleName</span>: <span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">styles</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">getLocalEffectStylesAsync</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">style</span> <span class="o">=</span> <span class="nx">styles</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">s</span> <span class="p">=&gt;</span> <span class="nx">s</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">styleName</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">style</span><span class="p">)</span> <span class="k">throw</span> <span class="ow">new</span> <span class="ne">Error</span><span class="p">(</span><span class="sb">`Effect style &quot;</span><span class="si">${</span><span class="nx">styleName</span><span class="si">}</span><span class="sb">&quot; not found`</span><span class="p">);</span>
+  <span class="nx">node</span><span class="p">.</span><span class="nx">effectStyleId</span> <span class="o">=</span> <span class="nx">style</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+  <span class="c1">// ✅ Done. Do NOT set custom boxShadow after this.</span>
+<span class="p">}</span>
+
+<span class="c1">// Usage</span>
+<span class="k">await</span> <span class="nx">applyEffectStyle</span><span class="p">(</span><span class="nx">cardNode</span><span class="p">,</span> <span class="s1">&#39;boxShadowCard&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">applyEffectStyle</span><span class="p">(</span><span class="nx">modalNode</span><span class="p">,</span> <span class="s1">&#39;boxShadow&#39;</span><span class="p">);</span>
+<span class="k">await</span> <span class="nx">applyEffectStyle</span><span class="p">(</span><span class="nx">dropdownNode</span><span class="p">,</span> <span class="s1">&#39;boxShadowSecondary&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<h3 id="effect-style-reference">Effect style reference</h3>
+<div class="codehilite"><pre><span></span><code>boxShadowCard             → Cards
+boxShadow                 → Modals, Drawers
+boxShadowSecondary        → Dropdowns, Popovers, Tooltips
+boxShadowTertiary         → Subtle elevation
+boxShadowButtonPrimary    → Primary button (Ant applies automatically)
+boxShadowButtonDefault    → Default button (Ant applies automatically)
+boxShadowButtonError      → Danger button (Ant applies automatically)
+focusPrimary              → Input focus (Ant applies automatically)
+focusError                → Error state focus
+focusWarning              → Warning state focus
+</code></pre></div>
+
+<hr />
+<h2 id="mandatory-rule-5-spacing-8px-grid">MANDATORY RULE 5 — Spacing (8px grid)</h2>
+<div class="codehilite"><pre><span></span><code><span class="mf">4</span><span class="n">px</span><span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">icon</span><span class="o">-</span><span class="kr">to</span><span class="o">-</span><span class="n">text</span><span class="w"> </span><span class="n">inside</span><span class="w"> </span><span class="n">tag</span><span class="o">/</span><span class="n">badge</span><span class="w">       </span><span class="p">(</span><span class="n">marginXXS</span><span class="p">)</span><span class="w"></span>
+<span class="mf">8</span><span class="n">px</span><span class="w">  </span><span class="err">→</span><span class="w"> </span><span class="n">icon</span><span class="o">-</span><span class="kr">to</span><span class="o">-</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="n">tight</span><span class="w"> </span><span class="kr">list</span><span class="w"> </span><span class="n">items</span><span class="w">      </span><span class="p">(</span><span class="n">marginXS</span><span class="p">)</span><span class="w"></span>
+<span class="mf">16</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">button</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">sibling</span><span class="w"> </span><span class="n">components</span><span class="w">    </span><span class="p">(</span><span class="n">margin</span><span class="p">)</span><span class="w">   </span><span class="err">←</span><span class="w"> </span><span class="kd">DEF</span><span class="n">AULT</span><span class="w"></span>
+<span class="mf">24</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">standard</span><span class="w"> </span><span class="n">card</span><span class="w"> </span><span class="n">padding</span><span class="p">,</span><span class="w"> </span><span class="n">section</span><span class="w"> </span><span class="n">gap</span><span class="w">  </span><span class="p">(</span><span class="n">marginLG</span><span class="p">)</span><span class="w"></span>
+<span class="mf">32</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">major</span><span class="w"> </span><span class="n">section</span><span class="w"> </span><span class="n">break</span><span class="w"> </span><span class="kr">on</span><span class="n">ly</span><span class="w">            </span><span class="p">(</span><span class="n">marginXL</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">Dashboard</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="kd">data</span><span class="o">-</span><span class="n">heavy</span><span class="w"> </span><span class="n">cards</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mf">16</span><span class="n">px</span><span class="w"> </span><span class="n">padding</span><span class="w"> </span><span class="p">(</span><span class="ow">NOT</span><span class="w"> </span><span class="mf">24</span><span class="n">px</span><span class="p">)</span><span class="w"></span>
+<span class="n">Standard</span><span class="w"> </span><span class="n">page</span><span class="w"> </span><span class="n">cards</span><span class="w">          </span><span class="err">→</span><span class="w"> </span><span class="mf">24</span><span class="n">px</span><span class="w"> </span><span class="n">padding</span><span class="w"></span>
+<span class="nb">Tab</span><span class="n">le</span><span class="w"> </span><span class="n">card</span><span class="w">                   </span><span class="err">→</span><span class="w"> </span><span class="mf">0</span><span class="n">px</span><span class="w"> </span><span class="p">(</span><span class="nb">Tab</span><span class="n">le</span><span class="w"> </span><span class="n">owns</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">borders</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<hr />
+<h2 id="mandatory-rule-6-border-radius-two-tier-never-override">MANDATORY RULE 6 — Border Radius (two-tier, never override)</h2>
+<div class="codehilite"><pre><span></span><code><span class="mf">6</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="nb">Int</span><span class="n">eractive</span><span class="p">:</span><span class="w"> </span><span class="n">Button</span><span class="p">,</span><span class="w"> </span><span class="kr">Input</span><span class="p">,</span><span class="w"> </span><span class="n">Select</span><span class="p">,</span><span class="w"> </span><span class="n">Dropdown</span><span class="w">   </span><span class="p">(</span><span class="n">borderRadius</span><span class="p">)</span><span class="w"></span>
+<span class="mf">8</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="kr">Cont</span><span class="n">ainer</span><span class="p">:</span><span class="w">  </span><span class="n">Card</span><span class="p">,</span><span class="w"> </span><span class="n">Modal</span><span class="p">,</span><span class="w"> </span><span class="n">Panel</span><span class="p">,</span><span class="w"> </span><span class="n">Drawer</span><span class="w">          </span><span class="p">(</span><span class="n">borderRadiusLG</span><span class="p">)</span><span class="w"></span>
+<span class="mf">4</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Dense</span><span class="w"> </span><span class="kr">cont</span><span class="n">rols</span><span class="w">                                  </span><span class="p">(</span><span class="n">borderRadiusSM</span><span class="p">)</span><span class="w"></span>
+<span class="mf">2</span><span class="n">px</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="n">Tags</span><span class="p">,</span><span class="w"> </span><span class="n">badges</span><span class="w">                                    </span><span class="p">(</span><span class="n">borderRadiusXS</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p>ConfigProvider sets these. <strong>Never override with custom values.</strong></p>
+<hr />
+<h2 id="mandatory-rule-7-three-layer-surface">MANDATORY RULE 7 — Three-layer surface</h2>
+<div class="codehilite"><pre><span></span><code>Layer 3: #FFFFFF + boxShadow           → Modal, Dropdown, Tooltip
+Layer 2: #FFFFFF + 1px #F0F0F0 border  → Card
+Layer 1: #F5F5F5                       → Page canvas (colorBgLayout)
+</code></pre></div>
+
+<p>Never put white cards on a white page background.</p>
+<hr />
+<h2 id="mandatory-rule-8-primary-button-main-cta-ux-rule">MANDATORY RULE 8 — Primary button = main CTA (UX rule)</h2>
+<p>When a page or modal has multiple buttons, the <strong>most important call-to-action MUST use the Primary button</strong> (<code>type="primary"</code>). This is a UX requirement — it tells the user exactly what to click next.</p>
+<h3 id="the-rule-in-full">The rule in full</h3>
+<ul>
+<li><strong>One Primary button per screen / modal</strong> — the single most important action</li>
+<li><strong>Primary button = the CTA</strong> — Save, Submit, Create, Confirm, Next</li>
+<li><strong>All other buttons = secondary</strong> — use <code>default</code>, <code>link</code>, or <code>text</code></li>
+<li><strong>Never leave a page with multiple buttons where none is Primary</strong> — the user won't know what to do</li>
+</ul>
+<h3 id="decision-guide">Decision guide</h3>
+<div class="codehilite"><pre><span></span><code><span class="nv">Ask</span>: <span class="s2">&quot;</span><span class="s">What is the ONE thing I want the user to do on this screen?</span><span class="s2">&quot;</span>
+→ <span class="nv">That</span> <span class="nv">action</span> <span class="nv">gets</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&quot;</span><span class="s">primary</span><span class="s2">&quot;</span>
+→ <span class="nv">Everything</span> <span class="k">else</span> <span class="nv">gets</span> <span class="nv">default</span> <span class="o">/</span> <span class="nv">link</span> <span class="o">/</span> <span class="nv">text</span>
+</code></pre></div>
+
+<h3 id="examples">Examples</h3>
+<div class="codehilite"><pre><span></span><code>// ✅ CORRECT — form footer: Save is the CTA
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>                   {/* default — secondary */}
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save<span class="nt">&lt;/Button&gt;</span>      {/* primary — main CTA */}
+<span class="nt">&lt;/Space&gt;</span>
+
+// ✅ CORRECT — confirmation modal: Confirm is the CTA
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Go Back<span class="nt">&lt;/Button&gt;</span>                  {/* default */}
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Confirm<span class="nt">&lt;/Button&gt;</span>   {/* primary — main CTA */}
+<span class="nt">&lt;/Space&gt;</span>
+
+// ✅ CORRECT — destructive modal: Delete is the CTA (danger variant)
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>                   {/* default */}
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span> <span class="err">danger</span><span class="nt">&gt;</span>Delete<span class="nt">&lt;/Button&gt;</span>  {/* primary danger — main CTA */}
+<span class="nt">&lt;/Space&gt;</span>
+
+// ✅ CORRECT — list page toolbar: Create is the CTA
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button</span> <span class="na">icon=</span><span class="s">{&lt;FilterOutlined</span> <span class="nt">/&gt;</span>}&gt;Filter<span class="nt">&lt;/Button&gt;</span>    {/* default */}
+  <span class="nt">&lt;Button</span> <span class="na">icon=</span><span class="s">{&lt;ExportOutlined</span> <span class="nt">/&gt;</span>}&gt;Export<span class="nt">&lt;/Button&gt;</span>    {/* default */}
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span> <span class="na">icon=</span><span class="s">{&lt;PlusOutlined</span> <span class="nt">/&gt;</span>}&gt;      {/* primary — main CTA */}
+    Create Job
+  <span class="nt">&lt;/Button&gt;</span>
+<span class="nt">&lt;/Space&gt;</span>
+
+// ❌ WRONG — two primaries, user doesn&#39;t know which to click
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save Draft<span class="nt">&lt;/Button&gt;</span>
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/Button&gt;</span>
+<span class="nt">&lt;/Space&gt;</span>
+
+// ✅ FIX — Submit is the real CTA
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Save Draft<span class="nt">&lt;/Button&gt;</span>               {/* default */}
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/Button&gt;</span>    {/* primary — main CTA */}
+<span class="nt">&lt;/Space&gt;</span>
+
+// ❌ WRONG — multiple buttons, none is primary
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Save<span class="nt">&lt;/Button&gt;</span>
+<span class="nt">&lt;/Space&gt;</span>
+
+// ✅ FIX — always mark the CTA
+<span class="nt">&lt;Space</span> <span class="na">size=</span><span class="s">{16}</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Button&gt;</span>Cancel<span class="nt">&lt;/Button&gt;</span>
+  <span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save<span class="nt">&lt;/Button&gt;</span>      {/* primary — main CTA */}
+<span class="nt">&lt;/Space&gt;</span>
+</code></pre></div>
+
+<h3 id="in-figma-plugin-code">In Figma plugin code</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// When placing multiple buttons, always identify the CTA first</span>
+<span class="c1">// Then use the Primary variant for that button, Default for the rest</span>
+
+<span class="kd">const</span> <span class="nx">buttonSet</span> <span class="o">=</span> <span class="nx">figma</span><span class="p">.</span><span class="nx">root</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
+  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT_SET&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="s1">&#39;Button&#39;</span>
+<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentSetNode</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">primaryVariant</span> <span class="o">=</span> <span class="nx">buttonSet</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
+  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;Type=Primary&#39;</span><span class="p">)</span>
+<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">;</span>
+
+<span class="kd">const</span> <span class="nx">defaultVariant</span> <span class="o">=</span> <span class="nx">buttonSet</span><span class="p">.</span><span class="nx">children</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">n</span> <span class="p">=&gt;</span>
+  <span class="nx">n</span><span class="p">.</span><span class="kr">type</span> <span class="o">===</span> <span class="s1">&#39;COMPONENT&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">n</span><span class="p">.</span><span class="nx">name</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;Type=Default&#39;</span><span class="p">)</span>
+<span class="p">)</span> <span class="kr">as</span> <span class="nx">ComponentNode</span><span class="p">;</span>
+
+<span class="c1">// CTA gets Primary</span>
+<span class="kd">const</span> <span class="nx">saveBtn</span> <span class="o">=</span> <span class="nx">primaryVariant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
+<span class="nx">saveBtn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Save&#39;</span> <span class="p">});</span>
+
+<span class="c1">// Secondary gets Default</span>
+<span class="kd">const</span> <span class="nx">cancelBtn</span> <span class="o">=</span> <span class="nx">defaultVariant</span><span class="p">.</span><span class="nx">createInstance</span><span class="p">();</span>
+<span class="nx">cancelBtn</span><span class="p">.</span><span class="nx">setProperties</span><span class="p">({</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Cancel&#39;</span> <span class="p">});</span>
+</code></pre></div>
+
+<hr />
+<h2 id="configprovider-app-root-setup-react">ConfigProvider — app root setup (React)</h2>
+<div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">qmasTheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorPrimary</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#1677FF&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorSuccess</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#52C41A&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorWarning</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#FAAD14&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorError</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#FF4D4F&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">borderRadius</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">borderRadiusLG</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">borderRadiusSM</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">borderRadiusXS</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Font</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="n">come</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">Roboto</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="n">style</span><span class="w"> </span><span class="n">binding</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSize</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeLG</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeXL</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeHeading1</span><span class="p">:</span><span class="w"> </span><span class="mi">38</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeHeading2</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeHeading3</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeHeading4</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">fontSizeHeading5</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorBgLayout</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#F5F5F5&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorBgContainer</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#FFFFFF&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorBorder</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#D9D9D9&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">colorBorderSecondary</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;#F0F0F0&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">controlHeight</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">controlHeightLG</span><span class="p">:</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">controlHeightSM</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="n">components</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Card</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="n">borderRadiusLG</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="n">paddingLG</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">Button</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">borderRadius</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">Input</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">borderRadius</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">    </span><span class="n">Modal</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">borderRadiusLG</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="p">},</span><span class="w"></span>
+<span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+</code></pre></div>
+
+<hr />
+<h2 id="figma-source-files">Figma source files</h2>
+<ul>
+<li><strong>Tokens:</strong> <code>T9HItYJ1nxXEJPiVF5xdxM</code> (Ant Design System v6 (QMAS))</li>
+<li><strong>Live reference (primary):</strong> <code>Us5oOt7YbHQVpQrQCLtyJG</code> (Design MD reference)</li>
+<li><strong>Icons:</strong> Node <code>65:142</code></li>
+<li><strong>Header:</strong> Node <code>10754:29155</code></li>
+<li><strong>Sidebar:</strong> Node <code>10754:29156</code></li>
+</ul>
+<p><strong>The Figma file always wins over this skill.</strong></p>
+<p>Last synced: <strong>2026-05-19</strong></p>
+  </article>
+  <div class="footer">QMAS Design System · auto-generated from <code>files10/SKILL-v10-final.md</code></div>
+</div>
+</body>
+</html>
