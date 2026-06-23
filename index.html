@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QMAS Design System — files12</title>
+<title>QMAS Design System — files13</title>
 <style>
 :root {
   --bg: #F5F5F5; --surface: #FFFFFF; --border: #F0F0F0; --border-strong: #D9D9D9;
@@ -147,13 +147,13 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <div class="page-shell">
   <div class="hero">
-    <span class="tag">QMAS Design System · files12</span>
+    <span class="tag">QMAS Design System · files13</span>
     <h1>QMAS Design System — Mandatory Instructions</h1>
     <p class="lead">QMAS design system skill for Ant Design v6 QMAS. TRIGGER THIS SKILL WHENEVER: (1) user says "QMAS" or "Ant Design v6" or "Ant Design System"; (2) user asks to build/design/code UI, components, pages, buttons, cards, forms, tables, modals, dashboards for QMAS product; (3) user mentions any design token, text style, effect style, or color; (4) user says "整個" (build) + UI word + "QMAS"; (5) user shows QMAS Figma file or asks about QMAS design. This skill is MANDATORY for any QMAS UI work. Use REAL QMAS Text Styles (Base, Large, Heading/2, etc.) and Effect Styles (boxShadowCard, focusPrimary, etc.) — never raw px values.</p>
     <div class="meta">
-      <span><strong>Source folder:</strong> files12/</span>
-      <span><strong>Source file:</strong> SKILL-v12-final.md</span>
-      <span><strong>Last synced:</strong> 2026-05-20</span>
+      <span><strong>Source folder:</strong> files13/</span>
+      <span><strong>Source file:</strong> SKILL-v13-final.md</span>
+      <span><strong>Last synced:</strong> 2026-05-21</span>
     </div>
   </div>
   <article class="content">
@@ -585,6 +585,82 @@ Layer 1: #F5F5F5                       → Page canvas (colorBgLayout)
 </code></pre></div>
 
 <hr />
+<h2 id="mandatory-rule-9-text-case-title-case-acronyms">MANDATORY RULE 9 — Text Case (Title Case + acronyms)</h2>
+<p>UI text in QMAS follows a strict Title Case principle. Misapplied case is the most common visual regression because Figma's built-in <code>textCase = TITLE</code> transform breaks acronyms (<code>QC</code> → <code>Qc</code>, <code>Job ID</code> → <code>Job Id</code>). <strong>Never use it.</strong> Write characters in their final cased form instead, and leave <code>textCase = ORIGINAL</code>.</p>
+<h3 id="where-title-case-applies-every-words-first-letter-capitalised">Where Title Case applies (every word's first letter capitalised)</h3>
+<ul>
+<li><strong>Section titles</strong> ("Create Production Order")</li>
+<li><strong>Field labels</strong> ("Production Module", "Quality Inspector")</li>
+<li><strong>Button labels</strong> ("Save Draft", "Submit For Review")</li>
+<li><strong>Chips / tags</strong> ("In Progress", "Awaiting Approval")</li>
+<li><strong>Table column headers</strong> ("Job ID", "Created Date", "Approver")</li>
+<li><strong>Left-side navigation items</strong> ("Production Orders", "QC Reports")</li>
+</ul>
+<h3 id="where-to-keep-the-original-case-no-conversion">Where to keep the original case (NO conversion)</h3>
+<ul>
+<li><strong>Descriptions / helper text</strong> — sentence case, as written ("Click to upload a CSV file.")</li>
+<li><strong>Input placeholders</strong> — sentence case, as written</li>
+<li><strong>Real data</strong> — names, emails, dates, IDs, team / module / supplier names display verbatim from the source</li>
+</ul>
+<h3 id="acronyms-stay-all-caps-inside-title-case-strings">Acronyms STAY all-caps inside Title Case strings</h3>
+<p>Whenever a token is an acronym, do NOT case-fold it as part of title casing. Keep it all-caps:</p>
+<div class="codehilite"><pre><span></span><code>✅ &quot;QC Pass Rate&quot;       ❌ &quot;Qc Pass Rate&quot;
+✅ &quot;Job ID&quot;             ❌ &quot;Job Id&quot;
+✅ &quot;TCF Tracking&quot;       ❌ &quot;Tcf Tracking&quot;
+✅ &quot;PO Status&quot;          ❌ &quot;Po Status&quot;
+✅ &quot;Approve By PM&quot;      ❌ &quot;Approve By Pm&quot;
+✅ &quot;ECD Forecast&quot;       ❌ &quot;Ecd Forecast&quot;
+</code></pre></div>
+
+<p>Known QMAS acronyms to preserve all-caps: <strong>QC, IQC, QMAS, TCF, PO, ID, ECD, PM</strong> (extend per project).</p>
+<h3 id="email-url-are-always-lowercase">Email / URL are always lowercase</h3>
+<div class="codehilite"><pre><span></span><code><span class="err">✅</span><span class="w"> </span><span class="n">david</span><span class="p">.</span><span class="n">kim</span><span class="nv">@company</span><span class="p">.</span><span class="n">com</span><span class="w">           </span><span class="err">❌</span><span class="w"> </span><span class="n">David</span><span class="p">.</span><span class="n">Kim</span><span class="nv">@Company</span><span class="p">.</span><span class="n">com</span><span class="w"></span>
+<span class="err">✅</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">qmas</span><span class="p">.</span><span class="n">icw</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">jobs</span><span class="o">/</span><span class="mi">123</span><span class="w">    </span><span class="err">❌</span><span class="w"> </span><span class="nl">Https</span><span class="p">:</span><span class="o">//</span><span class="n">Qmas</span><span class="p">.</span><span class="n">Icw</span><span class="p">.</span><span class="n">Io</span><span class="o">/</span><span class="n">Jobs</span><span class="o">/</span><span class="mi">123</span><span class="w"></span>
+</code></pre></div>
+
+<h3 id="inline-formatting-must-survive-case-edits">Inline formatting must survive case edits</h3>
+<p>When re-casing a string, touch ONLY letter case. Preserve:
+- Red required asterisk <code>*</code> (keep its original colour / fill)
+- Mixed-colour spans inside the string
+- Bolded sub-spans, links, etc.</p>
+<p>Use a <strong>surgical edit</strong> — change only the letters whose case must shift. Do NOT overwrite the entire text block (that destroys the formatting).</p>
+<h3 id="designer-annotations-are-not-ui-skip-them">Designer annotations are NOT UI — skip them</h3>
+<p>Canvas notes / annotations like <code>*** Step 1 ***</code>, <code>Creation flow / Step 1</code>, or any <code>***…***</code> callout are designer comments, not user-facing UI. <strong>Do not Title-Case them.</strong></p>
+<h3 id="figma-plugin-implementation-the-right-pattern">Figma plugin implementation — the right pattern</h3>
+<div class="codehilite"><pre><span></span><code><span class="c1">// ❌ WRONG — Figma&#39;s textCase = &quot;TITLE&quot; destroys acronyms (QC → Qc, Job ID → Job Id)</span>
+<span class="nx">node</span><span class="p">.</span><span class="nx">textCase</span> <span class="o">=</span> <span class="s1">&#39;TITLE&#39;</span><span class="p">;</span>
+
+<span class="c1">// ✅ CORRECT — write characters in the final cased form, leave textCase = ORIGINAL</span>
+<span class="kd">const</span> <span class="nx">QMAS_ACRONYMS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;QC&#39;</span><span class="p">,</span> <span class="s1">&#39;IQC&#39;</span><span class="p">,</span> <span class="s1">&#39;QMAS&#39;</span><span class="p">,</span> <span class="s1">&#39;TCF&#39;</span><span class="p">,</span> <span class="s1">&#39;PO&#39;</span><span class="p">,</span> <span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="s1">&#39;ECD&#39;</span><span class="p">,</span> <span class="s1">&#39;PM&#39;</span><span class="p">];</span>
+
+<span class="kd">function</span> <span class="nx">smartTitleCase</span><span class="p">(</span><span class="nx">s</span>: <span class="kt">string</span><span class="p">,</span> <span class="nx">acronyms</span> <span class="o">=</span> <span class="nx">QMAS_ACRONYMS</span><span class="p">)</span><span class="o">:</span> <span class="kt">string</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">s</span>
+    <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/(\s+|[-/])/</span><span class="p">)</span>              <span class="c1">// keep separators (space, dash, slash)</span>
+    <span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">tok</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">acronyms</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="nx">tok</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">()))</span> <span class="k">return</span> <span class="nx">tok</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/[a-zA-Z]/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">tok</span><span class="p">))</span> <span class="k">return</span> <span class="nx">tok</span><span class="p">;</span>          <span class="c1">// numbers, punctuation untouched</span>
+      <span class="k">return</span> <span class="nx">tok</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="nx">tok</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mf">1</span><span class="p">).</span><span class="nx">toLowerCase</span><span class="p">();</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">textNode</span><span class="p">.</span><span class="nx">characters</span> <span class="o">=</span> <span class="nx">smartTitleCase</span><span class="p">(</span><span class="s1">&#39;approve by pm&#39;</span><span class="p">);</span>  <span class="c1">// → &quot;Approve By PM&quot;</span>
+<span class="nx">textNode</span><span class="p">.</span><span class="nx">textCase</span>   <span class="o">=</span> <span class="s1">&#39;ORIGINAL&#39;</span><span class="p">;</span>                       <span class="c1">// must stay ORIGINAL</span>
+</code></pre></div>
+
+<h3 id="react-css-write-the-final-cased-string-in-source">React / CSS — write the final cased string in source</h3>
+<div class="codehilite"><pre><span></span><code>// ✅ CORRECT — source string already in Title Case with acronyms preserved
+<span class="nt">&lt;Button</span> <span class="na">type=</span><span class="s">&quot;primary&quot;</span><span class="nt">&gt;</span>Save Draft<span class="nt">&lt;/Button&gt;</span>
+<span class="nt">&lt;Form.Item</span> <span class="na">label=</span><span class="s">&quot;Job ID&quot;</span><span class="nt">&gt;</span>{/* … */}<span class="nt">&lt;/Form.Item&gt;</span>
+<span class="nt">&lt;Table.Column</span> <span class="na">title=</span><span class="s">&quot;QC Pass Rate&quot;</span> <span class="na">dataIndex=</span><span class="s">&quot;qcRate&quot;</span> <span class="nt">/&gt;</span>
+
+// ❌ FORBIDDEN — CSS text-transform: capitalize has the SAME acronym bug as Figma TITLE
+<span class="nt">&lt;Button</span> <span class="na">style=</span><span class="cp">{{</span> <span class="nv">textTransform</span><span class="o">:</span> <span class="s1">&#39;capitalize&#39;</span> <span class="cp">}}</span><span class="err">&gt;</span><span class="s">save</span> <span class="err">draft&lt;/Button</span><span class="nt">&gt;</span>
+//                              ^^^^^^^^^^^^^^ this would mangle &quot;QC&quot; → &quot;Qc&quot; too
+</code></pre></div>
+
+<p>The rule pairs with <a href="#mandatory-rule-8--primary-button--main-cta-ux-rule">Rule 8</a>: the Primary CTA's <em>label</em> must ALSO follow Title Case ("Save Draft", not "save draft" or "SAVE DRAFT").</p>
+<hr />
 <h2 id="configprovider-app-root-setup-react">ConfigProvider — app root setup (React)</h2>
 <div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">qmasTheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="n">token</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -647,7 +723,11 @@ If any answer is "no", <strong>fix the code first, then return</strong>.</p>
 <p><strong>Components (Rules 0–1)</strong>
 10. Used <code>createInstance()</code> from existing QMAS components instead of building frames from scratch?
 11. Used Ant Design v6 <code>&lt;Button&gt;</code> / <code>&lt;Input&gt;</code> / <code>&lt;Card&gt;</code> etc. instead of raw HTML?</p>
-<p>If all 11 are ✅, ship it. Otherwise, rewrite the offending lines and re-check.</p>
+<p><strong>Text case (Rule 9)</strong>
+12. Are all UI elements — section titles, field labels, button labels, chips/tags, table column headers, nav items — in <strong>Title Case</strong>?
+13. Are descriptions / helper text / placeholders / real data (names, emails, dates, IDs, supplier names) / emails / URLs kept in their <strong>original</strong> case (i.e. NOT title-cased)?
+14. Are acronyms (<code>QC</code>, <code>IQC</code>, <code>QMAS</code>, <code>TCF</code>, <code>PO</code>, <code>ID</code>, <code>ECD</code>, <code>PM</code>, …) preserved as <strong>all-caps</strong> — and did I write characters in the final cased form rather than using <code>textCase = 'TITLE'</code> (Figma) or <code>text-transform: capitalize</code> (CSS)?</p>
+<p>If all 14 are ✅, ship it. Otherwise, rewrite the offending lines and re-check.</p>
 <hr />
 <h2 id="figma-source-files">Figma source files</h2>
 <ul>
@@ -658,9 +738,9 @@ If any answer is "no", <strong>fix the code first, then return</strong>.</p>
 <li><strong>Sidebar:</strong> Node <code>10754:29156</code></li>
 </ul>
 <p><strong>The Figma file always wins over this skill.</strong></p>
-<p>Last synced: <strong>2026-05-20</strong> (v12 — three live-test corrections: (1) Rule 0/8 use three separate Button component sets with real keys, not one set with <code>Type=</code> variants; (2) Rule 2 XXSmall/Regular size 14→10 typo fix; (3) Rule 4 removed non-existent focus* effect styles. Roboto stays — verified via <code>figma.importStyleByKeyAsync</code>.)</p>
+<p>Last synced: <strong>2026-05-21</strong> (v13 — added MANDATORY RULE 9: Text Case. Title Case for UI elements (section titles, labels, buttons, chips, table headers, nav items); preserve original case for descriptions / placeholders / real data / emails / URLs; acronyms (<code>QC</code>, <code>IQC</code>, <code>QMAS</code>, <code>TCF</code>, <code>PO</code>, <code>ID</code>, <code>ECD</code>, <code>PM</code>) stay all-caps. NEVER use Figma <code>textCase = TITLE</code> or CSS <code>text-transform: capitalize</code> — both mangle acronyms. Final checklist expanded 11 → 14 items. All v12 token-binding rules unchanged.)</p>
   </article>
-  <div class="footer">QMAS Design System · auto-generated from <code>files12/SKILL-v12-final.md</code></div>
+  <div class="footer">QMAS Design System · auto-generated from <code>files13/SKILL-v13-final.md</code></div>
 </div>
 </body>
 </html>
