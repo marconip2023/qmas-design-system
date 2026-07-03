@@ -152,7 +152,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
     <p class="lead">QMAS design system skill for Ant Design v6 QMAS. TRIGGER THIS SKILL WHENEVER: (1) user says "QMAS" or "Ant Design v6" or "Ant Design System"; (2) user asks to build/design/code UI, components, pages, buttons, cards, forms, tables, modals, dashboards for QMAS product; (3) user mentions any design token, text style, effect style, or color; (4) user says "整個" (build) + UI word + "QMAS"; (5) user shows QMAS Figma file or asks about QMAS design. This skill is MANDATORY for any QMAS UI work. Use REAL QMAS Text Styles (Base, Large, Heading/2, etc.) and Effect Styles (boxShadowCard, focusPrimary, etc.) — never raw px values.</p>
     <div class="meta">
       <span><strong>Source folder:</strong> files14/</span>
-      <span><strong>Source file:</strong> SKILL-v14-final.md</span>
+      <span><strong>Source file:</strong> SKILL-v14.1-final.md</span>
       <span><strong>Last synced:</strong> 2026-07-02</span>
     </div>
   </div>
@@ -834,7 +834,7 @@ If any answer is "no", <strong>fix the code first, then return</strong>.</p>
 <p>Last synced: <strong>2026-07-02</strong> (v14.1 — added verified library component keys for the App Shell: Header "Top bar latest" <code>55828f969e61169f99efe12c8ac9ee29ae591d93</code>, Sider "side bar latest" <code>b699ab5db58bef618d8b213738d61e9409962b69</code>. Both are plain COMPONENTs → use <code>importComponentByKeyAsync</code>, not the ComponentSet variant. Keys confirmed working while building the Product Screening Figma file. Rule 10 plugin snippet updated from node-ID lookup to direct key import. No rule changes otherwise.)</p>
 <p>Previous: <strong>2026-06-23</strong> (v14 — added MANDATORY RULE 10: App Shell. Every QMAS page must wrap content in <code>&lt;Layout&gt;</code> with Header (node <code>10754:29155</code>) + Left-Nav <code>&lt;Sider width={64}&gt;</code> (node <code>10754:29156</code>); exceptions limited to login / auth pages, and overlays (Modal / Drawer / Popover) leave the shell mounted underneath. Documents the Brand layer (navy-400 <code>#1950AE</code>, text-600 <code>#232B3A</code>, navy-100 <code>#E5ECF6</code>, Body/Body 1/3 Roboto 16/19 + 12/16) which lives ABOVE the Ant Design QMAS token layer — not previously documented in v12 / v13. Full reference React (<code>PageShell</code>, <code>QmasTopBar</code>, <code>QmasLeftNav</code>) added to <code>references/components.md</code>. Final checklist expanded 14 → 17 items. Rules 0–9 unchanged.)</p>
   </article>
-  <div class="footer">QMAS Design System · auto-generated from <code>files14/SKILL-v14-final.md</code></div>
+  <div class="footer">QMAS Design System · auto-generated from <code>files14/SKILL-v14.1-final.md</code></div>
 </div>
 </body>
 </html>
